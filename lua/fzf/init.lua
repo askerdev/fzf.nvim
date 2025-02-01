@@ -4,6 +4,10 @@ local asio = require("fzf.asio")
 
 local M = {}
 
+local default_window = function()
+	return ui.center(ui.default())
+end
+
 M.all_files = function()
 	if cmd.is_arc_repo() then
 		M.arc_files()
@@ -20,10 +24,9 @@ M.arc_files = asio.async(function()
 		return
 	end
 
-	local w = ui.floating_window(ui.center(ui.default()), true)
+	ui.floating_window(default_window, true)
 	local command = cmd.pipe(cmd.arc.ls_files(), cmd.fzf())
 	local stdout = ui.prompt(command)
-	w:close()
 
 	if stdout == "" then
 		return
@@ -38,10 +41,9 @@ M.git_files = asio.async(function()
 		return
 	end
 
-	local w = ui.floating_window(ui.center(ui.default()), true)
+	ui.floating_window(default_window, true)
 	local command = cmd.pipe(cmd.git.ls_files(), cmd.fzf())
 	local stdout = ui.prompt(command)
-	w:close()
 
 	if stdout == "" then
 		return
@@ -51,10 +53,9 @@ M.git_files = asio.async(function()
 end)
 
 M.files = asio.async(function()
-	local w = ui.floating_window(ui.center(ui.default()), true)
+	ui.floating_window(default_window, true)
 	local command = cmd.pipe(cmd.rg.files(), cmd.fzf())
 	local stdout = ui.prompt(command)
-	w:close()
 
 	if stdout == "" then
 		return
