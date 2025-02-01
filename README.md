@@ -11,7 +11,7 @@ return {
       { "<leader><leader>", mode = "n", fzf.all_files, desc = "Find all files" },
       { "<leader>fg", mode = "n", fzf.git_files, desc = "Find git files" },
       { "<leader>ff", mode = "n", fzf.files, desc = "Find files" },
-	}
+    }
   end,
 }
 ```
